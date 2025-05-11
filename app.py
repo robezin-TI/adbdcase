@@ -4,13 +4,39 @@ import pandas as pd
 import plotly.express as px
 from datetime import datetime
 import logging
+import os
+from dotenv import load_dotenv
+
+# Configuração de segurança
+load_dotenv()  # Carrega credenciais do .env
+
+if not st.session_state.get('logged_in'):
+    st.set_page_config(layout="centered")  # Configuração temporária para o login
+    
+    with st.form("login_form"):
+        st.title("🔒 Painel E-Shop - Acesso Restrito")
+        username = st.text_input("Usuário")
+        password = st.text_input("Senha", type="password")
+        
+        if st.form_submit_button("Entrar"):
+            if (username == os.getenv("LOGIN_USERNAME") and 
+                (password == os.getenv("LOGIN_PASSWORD")):
+                st.session_state.logged_in = True
+                st.rerun()
+            else:
+                st.error("Credenciais inválidas")
+    
+    st.info("ℹ️ Use as credenciais fornecidas pelo administrador")
+    st.stop()  # Bloqueia o resto do aplicativo
+
+# Restaura a configuração original da página
+st.set_page_config(page_title="E-Shop Analytics", layout="wide")
 
 # Configuração básica de logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Título da aplicação
-st.set_page_config(page_title="E-Shop Analytics", layout="wide")
 st.title("📊 E-Shop Brasil - Painel de Dados")
 
 # Conexão com o MongoDB
@@ -47,6 +73,11 @@ option = st.sidebar.selectbox(
     ["Importar Dados", "Visualizar Dados", "Análise de Clientes", "Otimização Logística"],
     index=0
 )
+
+# Botão de logout (novo)
+if st.sidebar.button("🔒 Sair"):
+    st.session_state.logged_in = False
+    st.rerun()
 
 if option == "Importar Dados":
     st.header("📤 Importação de Dados")
