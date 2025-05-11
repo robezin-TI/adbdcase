@@ -54,7 +54,8 @@ if option == "Importar Dados":
     
     if uploaded_file is not None:
         try:
-            df = pd.read_csv(uploaded_file)
+            # Lê o CSV com tratamento para BOM (Byte Order Mark)
+            df = pd.read_csv(uploaded_file, encoding='utf-8-sig')
             
             # Pré-processamento
             df.columns = df.columns.str.strip()
