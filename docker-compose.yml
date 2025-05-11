@@ -11,6 +11,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
+    restart: always
 
   app:
     build: .
@@ -21,6 +22,9 @@ services:
       - mongodb
     environment:
       - MONGO_URI=mongodb://admin:password@mongodb:27017/
+    restart: always
+    stdin_open: true
+    tty: true
 
 volumes:
   mongodb_data:
