@@ -9,6 +9,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: eshop
     volumes:
       - mongodb_data:/data/db
     healthcheck:
@@ -27,7 +28,7 @@ services:
       mongodb:
         condition: service_healthy
     environment:
-      - MONGO_URI=mongodb://admin:password@mongodb:27017/
+      - MONGO_URI=mongodb://admin:password@mongodb:27017/eshop?authSource=admin
     volumes:
       - .:/app
     restart: unless-stopped
