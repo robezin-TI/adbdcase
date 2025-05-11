@@ -67,31 +67,30 @@ if option == "Importar Dados":
             if st.button("Confirmar Importação"):
                 if db is None:
                     st.error("Banco de dados não conectado")
-                    return
-                
-                with st.spinner("Importando..."):
-                    try:
-                        # Conversão de tipos
-                        numeric_cols = ['Quantidade', 'Preço Unitário (R$)', 'Preço Total (R$)']
-                        for col in numeric_cols:
-                            if col in df.columns:
-                                df[col] = pd.to_numeric(df[col], errors='coerce')
-                        
-                        # Remove linhas com dados inválidos
-                        df_clean = df.dropna()
-                        
-                        # Insere no MongoDB
-                        db.vendas.delete_many({})
-                        result = db.vendas.insert_many(df_clean.to_dict('records'))
-                        
-                        st.success(f"""
-                        ✅ Importação concluída!
-                        - Registros importados: {len(result.inserted_ids)}
-                        - Registros ignorados (dados inválidos): {len(df) - len(df_clean)}
-                        """)
-                    except Exception as e:
-                        st.error(f"Erro durante a importação: {str(e)}")
-                        logger.exception("Erro na importação")
+                else:
+                    with st.spinner("Importando..."):
+                        try:
+                            # Conversão de tipos
+                            numeric_cols = ['Quantidade', 'Preço Unitário (R$)', 'Preço Total (R$)']
+                            for col in numeric_cols:
+                                if col in df.columns:
+                                    df[col] = pd.to_numeric(df[col], errors='coerce')
+                            
+                            # Remove linhas com dados inválidos
+                            df_clean = df.dropna()
+                            
+                            # Insere no MongoDB
+                            db.vendas.delete_many({})
+                            result = db.vendas.insert_many(df_clean.to_dict('records'))
+                            
+                            st.success(f"""
+                            ✅ Importação concluída!
+                            - Registros importados: {len(result.inserted_ids)}
+                            - Registros ignorados (dados inválidos): {len(df) - len(df_clean)}
+                            """)
+                        except Exception as e:
+                            st.error(f"Erro durante a importação: {str(e)}")
+                            logger.exception("Erro na importação")
                         
         except Exception as e:
             st.error(f"Erro ao ler arquivo: {str(e)}")
