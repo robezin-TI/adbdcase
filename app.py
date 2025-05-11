@@ -2,140 +2,146 @@ import streamlit as st
 from pymongo import MongoClient
 import pandas as pd
 import plotly.express as px
-import os
+
+# Configuração inicial do Streamlit
+st.set_page_config(page_title="E-Shop Brasil", layout="wide")
 
 # Conexão com o MongoDB
-client = MongoClient("mongodb://admin:password@mongodb:27017/")
-db = client.eshop
+try:
+    client = MongoClient("mongodb://admin:password@mongodb:27017/", serverSelectionTimeoutMS=5000)
+    db = client.eshop
+    client.server_info()  # Testa a conexão
+    st.success("✅ Conectado ao MongoDB!")
+except Exception as e:
+    st.error(f"❌ Falha na conexão com MongoDB: {e}")
 
-# Configuração para GitHub Codespaces
-if 'CODESPACES' in os.environ:
-    st.set_page_config(serverAddress="0.0.0.0", serverPort=8501)
-
-st.title("E-Shop Brasil - Painel de Dados")
-
-# Menu de opções
+# Menu principal
 option = st.sidebar.selectbox(
-    "Menu",
-    ("Importar Dados", "Visualizar Dados", "Análise de Clientes", "Otimização Logística")
+    "Menu de Navegação",
+    ["Importar Dados", "Visualizar Dados", "Análise de Clientes", "Otimização Logística"],
+    index=0
 )
 
+# Função para carregar dados
+def load_data():
+    try:
+        data = list(db.vendas.find({}))
+        if not data:
+            st.warning("⚠️ Nenhum dado encontrado no banco de dados")
+            return None
+        return pd.DataFrame(data)
+    except Exception as e:
+        st.error(f"Erro ao carregar dados: {e}")
+        return None
+
 if option == "Importar Dados":
-    st.header("📤 Importar Dados para o MongoDB")
-    uploaded_file = st.file_uploader("Escolha um arquivo CSV", type="csv")
+    st.header("📤 Importação de Dados")
+    uploaded_file = st.file_uploader("Carregue seu arquivo CSV", type="csv")
     
     if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file)
-        if st.button("Importar para MongoDB"):
-            db.vendas.insert_many(df.to_dict('records'))
-            st.success("✅ Dados importados com sucesso!")
+        try:
+            df = pd.read_csv(uploaded_file)
+            st.write("Pré-visualização dos dados:", df.head())
+            
+            if st.button("Importar para o MongoDB"):
+                db.vendas.delete_many({})  # Limpa a coleção existente
+                db.vendas.insert_many(df.to_dict('records'))
+                st.success(f"✅ {len(df)} registros importados com sucesso!")
+        except Exception as e:
+            st.error(f"Erro ao importar: {e}")
 
 elif option == "Visualizar Dados":
-    st.header("📋 Dados Armazenados")
-    collections = db.list_collection_names()
-    selected_collection = st.selectbox("Selecione uma coleção", collections)
-    
-    if selected_collection:
-        data = list(db[selected_collection].find().limit(100))
-        df = pd.DataFrame(data)
+    st.header("📋 Visualização de Dados")
+    df = load_data()
+    if df is not None:
         st.dataframe(df)
+        
+        # Mostrar estatísticas básicas
+        st.subheader("Estatísticas Básicas")
+        st.json({
+            "Total de Registros": len(df),
+            "Clientes Únicos": df['ID Cliente'].nunique(),
+            "Período dos Dados": {
+                "Início": df['Data'].min(),
+                "Fim": df['Data'].max()
+            }
+        })
 
 elif option == "Análise de Clientes":
     st.header("👥 Análise de Comportamento de Clientes")
+    df = load_data()
     
-    # Carrega dados
-    clientes_data = list(db.vendas.find())
-    
-    if clientes_data:
-        df = pd.DataFrame(clientes_data)
-        
-        # 1. Métricas-chave
-        st.subheader("📊 Métricas-Chave")
+    if df is not None:
+        # Métricas principais
         col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Clientes Únicos", df['ID Cliente'].nunique())
-        with col2:
-            st.metric("Cidades Atendidas", df['Cidade'].nunique())
-        with col3:
-            st.metric("Ticket Médio", f"R${df['Preço Total (R$)'].mean():.2f}")
-
-        # 2. Top clientes
+        col1.metric("Clientes Únicos", df['ID Cliente'].nunique())
+        col2.metric("Cidades Atendidas", df['Cidade'].nunique())
+        col3.metric("Ticket Médio", f"R${df['Preço Total (R$)'].mean():.2f}")
+        
+        # Top clientes
         st.subheader("🏆 Top 10 Clientes")
         top_clientes = df.groupby('Nome do Cliente').agg({
             'Preço Total (R$)': 'sum',
             'Quantidade': 'sum',
             'Cidade': 'first'
-        }).nlargest(10, 'Preço Total (R$)').reset_index()
+        }).nlargest(10, 'Preço Total (R$)')
         
-        fig1 = px.bar(top_clientes, 
-                     x='Nome do Cliente', 
-                     y='Preço Total (R$)',
-                     color='Cidade',
-                     title='Clientes que Mais Compram')
-        st.plotly_chart(fig1)
-
-        # 3. Preferências por cidade
+        st.dataframe(top_clientes.style.format({'Preço Total (R$)': "R$ {:.2f}"}))
+        
+        # Análise geográfica
         st.subheader("🗺️ Distribuição Geográfica")
-        cidade_stats = df.groupby('Cidade').agg({
-            'Preço Total (R$)': 'sum',
-            'ID Cliente': 'nunique'
-        }).reset_index()
-        
-        fig2 = px.pie(cidade_stats, 
-                     values='Preço Total (R$)', 
-                     names='Cidade',
-                     title='Distribuição de Vendas por Cidade')
-        st.plotly_chart(fig2)
-
-    else:
-        st.warning("⚠️ Nenhum dado encontrado. Importe dados primeiro.")
+        fig = px.pie(
+            df.groupby('Cidade')['ID Cliente'].nunique().reset_index(),
+            values='ID Cliente',
+            names='Cidade',
+            title='Distribuição de Clientes por Cidade'
+        )
+        st.plotly_chart(fig, use_container_width=True)
 
 elif option == "Otimização Logística":
-    st.header("🚚 Otimização de Rotas e Estoque")
+    st.header("🚛 Otimização de Rotas e Estoque")
+    df = load_data()
     
-    # Carrega dados
-    vendas_data = list(db.vendas.find())
-    
-    if vendas_data:
-        df = pd.DataFrame(vendas_data)
-        
-        # 1. Análise por cidade
+    if df is not None:
+        # Análise por cidade
         st.subheader("📌 Entregas por Região")
-        cidade_entregas = df.groupby('Cidade').agg({
+        cidade_stats = df.groupby('Cidade').agg({
             'Quantidade': 'sum',
-            'ID Cliente': 'nunique'
-        }).reset_index()
+            'ID Cliente': 'nunique',
+            'Preço Total (R$)': 'sum'
+        }).sort_values('Quantidade', ascending=False)
         
-        fig1 = px.bar(cidade_entregas,
-                     x='Cidade',
-                     y='Quantidade',
-                     color='ID Cliente',
-                     title='Volume de Entregas por Cidade')
-        st.plotly_chart(fig1)
-
-        # 2. Gestão de estoque
-        st.subheader("📦 Gestão de Estoque")
+        fig1 = px.bar(
+            cidade_stats.reset_index(),
+            x='Cidade',
+            y='Quantidade',
+            color='Preço Total (R$)',
+            title='Volume de Entregas por Cidade'
+        )
+        st.plotly_chart(fig1, use_container_width=True)
+        
+        # Gestão de estoque
+        st.subheader("📦 Análise de Estoque")
         produto_stats = df.groupby('Item').agg({
             'Quantidade': 'sum',
             'Preço Unitário (R$)': 'mean'
         }).sort_values('Quantidade', ascending=False)
         
-        fig2 = px.treemap(produto_stats.reset_index(),
-                         path=['Item'],
-                         values='Quantidade',
-                         title='Demanda Relativa por Produto')
-        st.plotly_chart(fig2)
-
-        # 3. Sugestões automáticas
-        st.subheader("💡 Recomendações")
-        cidade_critica = cidade_entregas.loc[cidade_entregas['Quantidade'].idxmax(), 'Cidade']
-        produto_critico = produto_stats.index[0]
+        fig2 = px.treemap(
+            produto_stats.reset_index(),
+            path=['Item'],
+            values='Quantidade',
+            title='Demanda de Produtos'
+        )
+        st.plotly_chart(fig2, use_container_width=True)
+        
+        # Recomendações
+        st.subheader("💡 Recomendações de Otimização")
+        cidade_principal = cidade_stats.index[0]
+        produto_principal = produto_stats.index[0]
         
         st.markdown(f"""
-        - **Estoque prioritário**: Aumentar estoque de **{produto_critico}** em **{cidade_critica}**
-        - **Centro de distribuição**: Sugerido para **{cidade_critica}**
-        - **Rotas otimizadas**: Agrupar entregas em **{cidade_critica}** no mesmo dia
+        - **Aumentar estoque** de **{produto_principal}** em **{cidade_principal}**
+        - **Otimizar rotas** para a região de **{cidade_principal}**
+        - **Estoque mínimo** para produtos menos vendidos
         """)
-
-    else:
-        st.warning("⚠️ Nenhum dado encontrado. Importe dados primeiro.")
