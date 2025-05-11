@@ -22,7 +22,6 @@ services:
   app:
     build: .
     container_name: app
-    env_file: .env  # LINHA ADICIONADA AQUI - CARREGA AS CREDENCIAIS DO LOGIN
     ports:
       - "8501:8501"
     depends_on:
