@@ -1,6 +1,6 @@
-streamlit
-pymongo
-pandas
-plotly-express
-cryptography
-python-dateutil
+streamlit==1.22.0
+pymongo==4.3.3
+pandas==1.5.3
+plotly-express==0.4.1
+cryptography==39.0.1
+python-dateutil==2.8.2
