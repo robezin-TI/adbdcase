@@ -9,15 +9,13 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: eshop
     volumes:
       - mongodb_data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       interval: 5s
-      timeout: 3s
-      retries: 5
-    restart: unless-stopped
+      timeout: 30s
+      retries: 3
 
   app:
     build: .
@@ -28,7 +26,7 @@ services:
       mongodb:
         condition: service_healthy
     environment:
-      - MONGO_URI=mongodb://admin:password@mongodb:27017/eshop?authSource=admin
+      MONGO_URI: "mongodb://admin:password@mongodb:27017/eshop?authSource=admin"
     volumes:
       - .:/app
     restart: unless-stopped
