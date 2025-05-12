@@ -2,20 +2,24 @@ version: '3.8'
 
 services:
   mongodb:
-    image: mongo:latest
+    image: mongo:6.0  # Versão específica ao invés de latest
     container_name: mongodb
     ports:
       - "27017:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
+      TZ: America/Sao_Paulo  # Fuso horário definido
     volumes:
       - mongodb_data:/data/db
     healthcheck:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 5s
+      interval: 10s  # Aumentado o intervalo
       timeout: 30s
-      retries: 3
+      retries: 5     # Aumentado as tentativas
+    restart: unless-stopped
+    networks:
+      - eshop-network
 
   app:
     build: .
@@ -27,9 +31,22 @@ services:
         condition: service_healthy
     environment:
       MONGO_URI: "mongodb://admin:password@mongodb:27017/eshop?authSource=admin"
+      PYTHONUNBUFFERED: 1  # Melhor tratamento de logs
     volumes:
       - .:/app
     restart: unless-stopped
+    networks:
+      - eshop-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   mongodb_data:
+
+networks:
+  eshop-network:
+    driver: bridge
+    name: eshop-network
