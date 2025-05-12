@@ -9,40 +9,30 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: eshop
     volumes:
       - mongodb_data:/data/db
     healthcheck:
-      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand({ ping: 1 }).ok"]
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand({ ping: 1 }).ok"]
       interval: 15s
       timeout: 30s
       retries: 10
-      start_period: 60s
     restart: unless-stopped
-    networks:
-      - eshop-network
 
   app:
     build: .
     container_name: eshop-app
     ports:
       - "8501:8501"
-    depends_on:
-      mongodb:
-        condition: service_healthy
     environment:
-      MONGO_URI: "mongodb://admin:password@eshop-mongodb:27017/eshop?authSource=admin&retryWrites=true&w=majority"
-      PYTHONUNBUFFERED: 1
+      MONGO_URI: "mongodb://admin:password@eshop-mongodb:27017/eshop?authSource=admin"
+      STREAMLIT_SERVER_PORT: 8501
+      STREAMLIT_SERVER_ADDRESS: 0.0.0.0
     volumes:
       - .:/app
     restart: unless-stopped
-    networks:
-      - eshop-network
+    depends_on:
+      mongodb:
+        condition: service_healthy
 
 volumes:
   mongodb_data:
-    driver: local
-
-networks:
-  eshop-network:
-    driver: bridge
