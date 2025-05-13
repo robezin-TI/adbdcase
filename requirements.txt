@@ -1,5 +1,5 @@
 streamlit>=1.22.0
 pymongo>=4.3.3
 pandas>=1.5.3
-numpy>=1.23.5
 plotly-express>=0.4.1
+numpy>=1.23.5
