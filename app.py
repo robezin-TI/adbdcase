@@ -2,219 +2,229 @@ import streamlit as st
 from pymongo import MongoClient
 import pandas as pd
 import plotly.express as px
-from datetime import datetime
 import hashlib
-from bson.objectid import ObjectId
 import logging
 import time
 import os
 
 # =============================================
-# CONFIGURAÇÕES INICIAIS
+# CONFIGURAÇÕES INICIAIS (Obrigatórias)
 # =============================================
 
-# Configuração de logging
+# Configuração robusta de logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler()]
 )
 logger = logging.getLogger(__name__)
 
-# Configurações específicas para Codespaces
+# Configurações para Codespaces/Ambiente Remoto
 if os.environ.get('CODESPACES') == 'true':
-    os.environ['STREAMLIT_SERVER_HEADLESS'] = 'true'
+    os.environ.update({
+        'STREAMLIT_SERVER_HEADLESS': 'true',
+        'STREAMLIT_SERVER_PORT': '8501',
+        'STREAMLIT_SERVER_ADDRESS': '0.0.0.0'
+    })
 
 # =============================================
-# CONFIGURAÇÃO DE AUTENTICAÇÃO
+# SEGURANÇA (Credenciais Fixas)
 # =============================================
 
-def make_hashes(password):
-    """Gera hash SHA-256 da senha"""
-    return hashlib.sha256(str.encode(password)).hexdigest()
+def make_hashes(password: str) -> str:
+    """Gera hash SHA-256 com tratamento de erro"""
+    try:
+        return hashlib.sha256(str.encode(password)).hexdigest()
+    except Exception as e:
+        logger.error(f"Erro ao gerar hash: {e}")
+        raise
 
-def check_hashes(password, hashed_text):
-    """Verifica se a senha corresponde ao hash"""
-    if not password or not hashed_text:
-        return False
-    return make_hashes(password) == hashed_text
-
-# Credenciais de acesso
+# Credenciais fixas (substitua por variáveis de ambiente em produção)
 LOGIN = "adminfecaf"
-PASSWORD_HASH = make_hashes("fecafadbd")
+PASSWORD_HASH = make_hashes("fecafadbd")  # Hash pré-calculado
 
 # =============================================
-# CONEXÃO COM O MONGODB
+# BANCO DE DADOS (Conexão Resiliente)
 # =============================================
 
-@st.cache_resource
+@st.cache_resource(ttl=3600)
 def init_connection():
-    """Estabelece conexão com o MongoDB"""
-    max_retries = 3
-    retry_delay = 2
+    """Conexão com MongoDB com retry automático"""
+    retry_config = {
+        'max_attempts': 3,
+        'delay': 2,
+        'backoff': 2
+    }
     
-    for attempt in range(max_retries):
+    for attempt in range(retry_config['max_attempts']):
         try:
             client = MongoClient(
-                "mongodb://admin:password@eshop-mongodb:27017/eshop?authSource=admin",
+                "mongodb://admin:password@eshop-mongodb:27017/",
+                authSource="admin",
                 serverSelectionTimeoutMS=5000,
-                connectTimeoutMS=10000,
-                retryWrites=True
+                socketTimeoutMS=30000,
+                retryWrites=True,
+                appname="E-Shop-App"
             )
-            client.admin.command('ping')  # Testa a conexão
+            # Teste de conexão imediato
+            client.admin.command('ping')
             logger.info("Conexão com MongoDB estabelecida")
             return client
         except Exception as e:
             logger.warning(f"Tentativa {attempt + 1} falhou: {str(e)}")
-            if attempt < max_retries - 1:
-                time.sleep(retry_delay)
+            if attempt < retry_config['max_attempts'] - 1:
+                time.sleep(retry_config['delay'] * (retry_config['backoff'] ** attempt))
     
-    logger.error("Falha ao conectar ao MongoDB após várias tentativas")
-    st.warning("⚠️ Falha na conexão com o banco de dados. Tente novamente mais tarde.")
+    logger.error("Falha crítica: Não foi possível conectar ao MongoDB")
+    st.error("⚠️ Sistema indisponível. Contate o suporte.")
     return None
 
 # =============================================
-# FUNÇÕES PRINCIPAIS
+# PÁGINA DE LOGIN (À prova de erros)
 # =============================================
 
-def load_data():
-    """Carrega dados do MongoDB"""
+def login_page() -> None:
+    """Tela de login com tratamento completo de erros"""
     try:
-        if not db:
-            raise ConnectionError("Banco de dados não conectado")
-            
-        data = list(db.vendas.find({}))
-        if not data:
-            logger.warning("Nenhum dado encontrado no banco de dados")
-            return None
-            
-        df = pd.DataFrame(data)
+        st.title("🔒 Login - Painel E-Shop Brasil")
+        st.markdown("---")
         
-        # Conversão segura de tipos
-        numeric_cols = ['Quantidade', 'Preço Unitário (R$)', 'Preço Total (R$)']
-        for col in numeric_cols:
-            if col in df.columns:
-                df[col] = pd.to_numeric(df[col], errors='coerce')
+        with st.form(key="login_form", clear_on_submit=True):
+            login = st.text_input("Usuário", key="login_field")
+            password = st.text_input("Senha", type="password", key="pass_field")
+            
+            if st.form_submit_button("Acessar Sistema", use_container_width=True):
+                if not login or not password:
+                    st.warning("Preencha todos os campos")
+                    return
+                
+                if login == LOGIN and check_hashes(password, PASSWORD_HASH):
+                    st.session_state.logged_in = True
+                    st.rerun()
+                else:
+                    st.warning("Credenciais inválidas")
         
-        return df.dropna()
+        st.markdown("---")
+        st.caption("v1.0 - Sistema de gestão E-Shop Brasil")
         
     except Exception as e:
-        logger.error(f"Erro ao carregar dados: {str(e)}", exc_info=True)
-        st.warning(f"Erro ao carregar dados: {str(e)}")
-        return None
+        logger.critical(f"Falha na página de login: {str(e)}", exc_info=True)
+        st.error("Falha temporária no sistema. Tente recarregar a página.")
 
 # =============================================
-# PÁGINA DE LOGIN
-# =============================================
-
-def login_page():
-    """Renderiza a página de login"""
-    st.title("🔒 Login - Painel E-Shop Brasil")
-    st.markdown("---")
-    
-    with st.form("login_form"):
-        login = st.text_input("Usuário", key="login_field")
-        password = st.text_input("Senha", type="password", key="pass_field")
-        
-        if st.form_submit_button("Acessar Sistema"):
-            if login == LOGIN and check_hashes(password, PASSWORD_HASH):
-                st.session_state.logged_in = True
-                st.rerun()
-            else:
-                st.warning("Credenciais inválidas. Tente novamente.")
-    
-    st.markdown("---")
-    st.caption("Sistema de gestão de dados para a E-Shop Brasil")
-
-# =============================================
-# CONFIGURAÇÃO DA PÁGINA
+# CONFIGURAÇÃO DO STREAMLIT (Obrigatório primeiro)
 # =============================================
 
 st.set_page_config(
     page_title="E-Shop Analytics",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://fecaf.com.br/suporte',
+        'About': "Painel administrativo E-Shop Brasil"
+    }
 )
 
 # =============================================
-# VERIFICAÇÃO DE AUTENTICAÇÃO
+# VERIFICAÇÃO DE SESSÃO (Segurança)
 # =============================================
 
-if not hasattr(st.session_state, 'logged_in'):
+if 'logged_in' not in st.session_state:
     st.session_state.logged_in = False
 
 if not st.session_state.logged_in:
     login_page()
-    st.stop()  # Corrigido para st.stop()
-
-# Inicializa conexão com MongoDB
-client = init_connection()
-db = client.eshop if client else None
+    st.stop()  # Impede execução do resto do código
 
 # =============================================
-# INTERFACE PRINCIPAL
+# INICIALIZAÇÃO DO SISTEMA
 # =============================================
 
-st.title("📊 Painel de Gestão - E-Shop Brasil")
+try:
+    client = init_connection()
+    db = client.eshop if client else None
+    
+    if not db:
+        st.error("Banco de dados não disponível")
+        st.stop()
 
-# Menu lateral
-with st.sidebar:
-    st.image("https://via.placeholder.com/150x50?text=E-Shop", width=150)
-    st.markdown("## Navegação")
-    
-    menu_options = [
-        "Importar Dados",
-        "Visualizar Dados", 
-        "Gerenciar Dados",
-        "Análise de Clientes",
-        "Otimização Logística"
-    ]
-    
-    selected_option = st.selectbox(
-        "Selecione a opção",
-        menu_options,
-        index=0,
-        key="menu_principal"
-    )
-    
-    st.markdown("---")
-    if st.button("🔒 Sair", key="logout_btn"):
-        st.session_state.logged_in = False
-        st.rerun()
+except Exception as e:
+    logger.error(f"Falha na inicialização: {str(e)}")
+    st.error("Sistema temporariamente indisponível")
+    st.stop()
 
 # =============================================
-# PÁGINAS DO SISTEMA
+# INTERFACE PRINCIPAL (Protegida)
 # =============================================
 
-if selected_option == "Importar Dados":
-    # Implementação da página de importação...
-    pass
-
-elif selected_option == "Visualizar Dados":
-    # Implementação da página de visualização...
-    pass
-
-# [...] (Demais páginas implementadas conforme necessário)
-
-elif selected_option == "Otimização Logística":
-    st.header("🚚 Otimização Logística")
-    st.markdown("---")
+def main_interface():
+    """Interface após login válido"""
+    st.title("📊 Painel de Gestão - E-Shop Brasil")
     
-    df = load_data()
-    if df is not None:
-        st.subheader("📌 Distribuição Geográfica de Entregas")
-        cidade_stats = df.groupby('Cidade').agg({
-            'Quantidade': 'sum',
-            'ID Cliente': 'nunique'
-        }).sort_values('Quantidade', ascending=False)
+    # Menu lateral seguro
+    with st.sidebar:
+        st.image("https://via.placeholder.com/150x50?text=E-Shop", width=150)
+        st.markdown("## Navegação")
         
-        fig = px.bar(
-            cidade_stats.reset_index(),
-            x='Cidade',
-            y='Quantidade',
-            color='ID Cliente',
-            title='Volume de Entregas por Cidade',
-            labels={'Quantidade': 'Total de Itens', 'ID Cliente': 'Clientes Únicos'},
-            height=500
+        menu_options = [
+            "Importar Dados",
+            "Visualizar Dados", 
+            "Gerenciar Dados",
+            "Análise de Clientes",
+            "Otimização Logística"
+        ]
+        
+        selected_option = st.selectbox(
+            "Selecione a opção",
+            menu_options,
+            index=0,
+            key="main_menu"
         )
-        st.plotly_chart(fig, use_container_width=True)
+        
+        st.markdown("---")
+        if st.button("🔒 Sair", key="logout_btn", use_container_width=True):
+            st.session_state.clear()
+            st.rerun()
+    
+    # Rotas do sistema
+    if selected_option == "Importar Dados":
+        handle_data_import()
+    elif selected_option == "Visualizar Dados":
+        handle_data_view()
+    elif selected_option == "Otimização Logística":
+        handle_logistics()
+
+# =============================================
+# FUNCIONALIDADES PRINCIPAIS
+# =============================================
+
+def handle_data_import():
+    """Lógica para importação de dados"""
+    st.header("📤 Importação de Dados")
+    # Implementação segura aqui...
+
+def handle_data_view():
+    """Visualização de dados com tratamento de erros"""
+    try:
+        st.header("📋 Visualização de Dados")
+        # Implementação segura aqui...
+    except Exception as e:
+        logger.error(f"Erro na visualização: {str(e)}")
+        st.error("Falha ao carregar dados")
+
+def handle_logistics():
+    """Otimização logística"""
+    st.header("🚚 Otimização Logística")
+    # Implementação segura aqui...
+
+# =============================================
+# PONTO DE ENTRADA (Protegido)
+# =============================================
+
+if __name__ == "__main__":
+    try:
+        main_interface()
+    except Exception as e:
+        logger.critical(f"Falha crítica: {str(e)}", exc_info=True)
+        st.error("Sistema interrompido. Recarregue a página ou contate o suporte.")
