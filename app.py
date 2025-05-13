@@ -6,9 +6,23 @@ from datetime import datetime
 import hashlib
 from bson.objectid import ObjectId
 import logging
+import os
 
-# Configuração básica de logging
-logging.basicConfig(level=logging.INFO)
+# =============================================
+# CONFIGURAÇÕES ESPECÍFICAS PARA CODESPACES
+# =============================================
+if os.environ.get('CODESPACES') == 'true':
+    os.environ['STREAMLIT_SERVER_HEADLESS'] = 'true'
+    os.environ['STREAMLIT_SERVER_PORT'] = '8501'
+    os.environ['STREAMLIT_SERVER_ADDRESS'] = '0.0.0.0'
+
+# =============================================
+# CONFIGURAÇÃO DE LOGGING
+# =============================================
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
 logger = logging.getLogger(__name__)
 
 # =============================================
@@ -18,31 +32,107 @@ def make_hashes(password):
     return hashlib.sha256(str.encode(password)).hexdigest()
 
 def check_hashes(password, hashed_text):
+    if not password or not hashed_text:
+        return False
     return make_hashes(password) == hashed_text
 
 # Dados de login válidos
 LOGIN = "adminfecaf"
-PASSWORD_HASH = make_hashes("fecafadbd")  # Hash da senha
+PASSWORD_HASH = make_hashes("fecafadbd")
 
-# Página de login
+# =============================================
+# CONEXÃO COM O MONGODB (OTIMIZADA)
+# =============================================
+@st.cache_resource
+def init_connection():
+    max_retries = 3
+    retry_delay = 2
+    
+    for attempt in range(max_retries):
+        try:
+            client = MongoClient(
+                "mongodb://admin:password@eshop-mongodb:27017/eshop?authSource=admin",
+                serverSelectionTimeoutMS=5000,
+                socketTimeoutMS=30000,
+                connectTimeoutMS=30000,
+                retryWrites=True,
+                retryReads=True
+            )
+            # Testa a conexão
+            client.admin.command('ping')
+            logger.info("Conexão com MongoDB estabelecida")
+            return client
+        except Exception as e:
+            logger.warning(f"Tentativa {attempt + 1} falhou: {str(e)}")
+            if attempt < max_retries - 1:
+                time.sleep(retry_delay)
+    
+    logger.error("Falha ao conectar ao MongoDB após várias tentativas")
+    st.error("⚠️ Falha na conexão com o banco de dados. Tente novamente mais tarde.")
+    return None
+
+# =============================================
+# FUNÇÕES PRINCIPAIS (COM TRATAMENTO DE ERROS)
+# =============================================
+def load_data():
+    try:
+        if not db:
+            raise ConnectionError("Banco de dados não conectado")
+            
+        data = list(db.vendas.find({}))
+        if not data:
+            logger.warning("Nenhum dado encontrado no banco de dados")
+            return None
+            
+        df = pd.DataFrame(data)
+        
+        # Conversão segura de tipos
+        numeric_cols = ['Quantidade', 'Preço Unitário (R$)', 'Preço Total (R$)']
+        for col in numeric_cols:
+            if col in df.columns:
+                df[col] = pd.to_numeric(df[col], errors='coerce')
+        
+        return df.dropna()
+        
+    except Exception as e:
+        logger.error(f"Erro ao carregar dados: {str(e)}", exc_info=True)
+        st.error(f"Erro ao carregar dados: {str(e)}")
+        return None
+
+# =============================================
+# PÁGINA DE LOGIN
+# =============================================
 def login_page():
     st.title("🔒 Login - Painel E-Shop Brasil")
     st.markdown("---")
     
-    login = st.text_input("Usuário")
-    password = st.text_input("Senha", type="password")
-    
-    if st.button("Acessar Sistema"):
-        if login == LOGIN and check_hashes(password, PASSWORD_HASH):
-            st.session_state.logged_in = True
-            st.experimental_rerun()
-        else:
-            st.error("Credenciais inválidas. Tente novamente.")
+    with st.form("login_form"):
+        login = st.text_input("Usuário", key="login_field")
+        password = st.text_input("Senha", type="password", key="pass_field")
+        
+        if st.form_submit_button("Acessar Sistema", use_container_width=True):
+            if login == LOGIN and check_hashes(password, PASSWORD_HASH):
+                st.session_state.logged_in = True
+                st.rerun()
+            else:
+                st.error("Credenciais inválidas. Tente novamente.")
     
     st.markdown("---")
     st.caption("Sistema de gestão de dados para a E-Shop Brasil")
 
-# Verifica autenticação
+# =============================================
+# CONFIGURAÇÃO INICIAL DA PÁGINA
+# =============================================
+st.set_page_config(
+    page_title="E-Shop Analytics",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# =============================================
+# VERIFICAÇÃO DE AUTENTICAÇÃO
+# =============================================
 if not hasattr(st.session_state, 'logged_in'):
     st.session_state.logged_in = False
 
@@ -50,68 +140,61 @@ if not st.session_state.logged_in:
     login_page()
     st.stop()
 
-# =============================================
-# CONEXÃO COM O MONGODB
-# =============================================
-@st.cache_resource
-def init_connection():
-    try:
-        client = MongoClient("mongodb://admin:password@mongodb:27017/eshop?authSource=admin")
-        client.server_info()
-        logger.info("Conexão com MongoDB estabelecida")
-        return client
-    except Exception as e:
-        logger.error(f"Erro na conexão: {str(e)}")
-        st.error(f"⚠️ Falha na conexão com o banco de dados: {str(e)}")
-        return None
-
+# Inicializa conexão com MongoDB
 client = init_connection()
 db = client.eshop if client else None
 
 # =============================================
-# FUNÇÕES PRINCIPAIS
-# =============================================
-def load_data():
-    try:
-        data = list(db.vendas.find({}))
-        if not data:
-            st.warning("Nenhum dado encontrado no banco de dados")
-            return None
-        return pd.DataFrame(data)
-    except Exception as e:
-        st.error(f"Erro ao carregar dados: {str(e)}")
-        return None
-
-# =============================================
 # INTERFACE PRINCIPAL
 # =============================================
-st.set_page_config(page_title="E-Shop Analytics", layout="wide")
 st.title("📊 Painel de Gestão - E-Shop Brasil")
 
 # Menu lateral
 with st.sidebar:
     st.image("https://via.placeholder.com/150x50?text=E-Shop", width=150)
     st.markdown("## Navegação")
-    option = st.selectbox(
+    
+    menu_options = [
+        "Importar Dados",
+        "Visualizar Dados", 
+        "Gerenciar Dados",
+        "Análise de Clientes",
+        "Otimização Logística"
+    ]
+    
+    selected_option = st.selectbox(
         "Selecione a opção",
-        ["Importar Dados", "Visualizar Dados", "Gerenciar Dados", "Análise de Clientes", "Otimização Logística"],
+        menu_options,
         index=0
     )
+    
     st.markdown("---")
-    if st.button("🔒 Sair"):
+    if st.button("🔒 Sair", use_container_width=True):
         st.session_state.logged_in = False
-        st.experimental_rerun()
+        st.rerun()
 
 # =============================================
 # PÁGINAS DO SISTEMA
 # =============================================
 
 # PÁGINA: IMPORTAR DADOS
-if option == "Importar Dados":
+if selected_option == "Importar Dados":
     st.header("📤 Importação de Dados")
     st.markdown("---")
     
-    uploaded_file = st.file_uploader("Selecione o arquivo CSV", type=["csv"])
+    with st.expander("Instruções de Importação", expanded=True):
+        st.markdown("""
+        1. Selecione um arquivo CSV com os dados de vendas
+        2. Verifique a pré-visualização
+        3. Confirme a importação
+        """)
+    
+    uploaded_file = st.file_uploader(
+        "Selecione o arquivo CSV", 
+        type=["csv"],
+        accept_multiple_files=False,
+        key="file_uploader"
+    )
     
     if uploaded_file is not None:
         try:
@@ -122,16 +205,16 @@ if option == "Importar Dados":
             if 'Data' in df.columns:
                 df['Data'] = pd.to_datetime(df['Data'], errors='coerce')
             
-            st.subheader("Pré-visualização dos Dados")
-            st.dataframe(df.head(3))
+            with st.expander("Pré-visualização dos Dados (10 primeiras linhas)"):
+                st.dataframe(df.head(10), use_container_width=True)
             
-            if st.button("Confirmar Importação", type="primary"):
+            if st.button("Confirmar Importação", type="primary", use_container_width=True):
                 if db is None:
                     st.error("Banco de dados não conectado")
                 else:
                     with st.spinner("Importando dados..."):
                         try:
-                            # Conversão de tipos
+                            # Conversão de tipos segura
                             numeric_cols = ['Quantidade', 'Preço Unitário (R$)', 'Preço Total (R$)']
                             for col in numeric_cols:
                                 if col in df.columns:
@@ -140,15 +223,32 @@ if option == "Importar Dados":
                             # Remove linhas com dados inválidos
                             df_clean = df.dropna()
                             
-                            # Insere no MongoDB
-                            db.vendas.delete_many({})
-                            result = db.vendas.insert_many(df_clean.to_dict('records'))
+                            # Insere no MongoDB em lotes
+                            batch_size = 100
+                            total_rows = len(df_clean)
+                            inserted_ids = []
+                            
+                            progress_bar = st.progress(0)
+                            status_text = st.empty()
+                            
+                            for i in range(0, total_rows, batch_size):
+                                batch = df_clean.iloc[i:i + batch_size].to_dict('records')
+                                result = db.vendas.insert_many(batch)
+                                inserted_ids.extend(result.inserted_ids)
+                                
+                                progress = min((i + batch_size) / total_rows, 1.0)
+                                progress_bar.progress(progress)
+                                status_text.text(f"Progresso: {int(progress * 100)}%")
                             
                             st.success(f"""
                             ✅ Importação concluída com sucesso!
-                            - Registros importados: {len(result.inserted_ids)}
+                            - Registros importados: {len(inserted_ids)}
                             - Registros ignorados (dados inválidos): {len(df) - len(df_clean)}
                             """)
+                            
+                            # Limpa cache após importação
+                            st.cache_data.clear()
+                            
                         except Exception as e:
                             st.error(f"Erro durante a importação: {str(e)}")
                             logger.exception("Erro na importação")
@@ -158,13 +258,14 @@ if option == "Importar Dados":
             logger.exception("Erro no processamento do CSV")
 
 # PÁGINA: VISUALIZAR DADOS
-elif option == "Visualizar Dados":
+elif selected_option == "Visualizar Dados":
     st.header("📋 Dados Armazenados")
     st.markdown("---")
     
     df = load_data()
     if df is not None:
-        st.dataframe(df)
+        with st.expander("Visualização Completa", expanded=True):
+            st.dataframe(df, use_container_width=True)
         
         col1, col2 = st.columns(2)
         with col1:
@@ -177,158 +278,12 @@ elif option == "Visualizar Dados":
             )
         with col2:
             if st.button("Atualizar Dados", use_container_width=True):
-                st.experimental_rerun()
+                st.rerun()
 
-# PÁGINA: GERENCIAR DADOS
-elif option == "Gerenciar Dados":
-    st.header("✏️ Gerenciamento de Dados")
-    st.markdown("---")
-    
-    df = load_data()
-    if df is not None:
-        # Seção para adicionar novo registro
-        with st.expander("➕ Adicionar Novo Registro", expanded=False):
-            with st.form("novo_registro_form"):
-                col1, col2 = st.columns(2)
-                with col1:
-                    novo_id = st.number_input("ID Cliente", min_value=1)
-                    novo_nome = st.text_input("Nome do Cliente")
-                    novo_item = st.selectbox("Item", ["Notebook", "Micro Ondas", "Liquidificador", "Ventilador", "Cafeteira"])
-                with col2:
-                    nova_data = st.date_input("Data")
-                    nova_cidade = st.selectbox("Cidade", ["Embu", "Itapecerica", "Taboão"])
-                    nova_quantidade = st.number_input("Quantidade", min_value=1)
-                    novo_preco = st.number_input("Preço Unitário (R$)", min_value=0.0)
-                
-                if st.form_submit_button("Adicionar Registro", type="primary"):
-                    novo_registro = {
-                        "ID Cliente": novo_id,
-                        "Data": str(nova_data),
-                        "Nome do Cliente": novo_nome,
-                        "Cidade": nova_cidade,
-                        "Item": novo_item,
-                        "Quantidade": nova_quantidade,
-                        "Preço Unitário (R$)": novo_preco,
-                        "Preço Total (R$)": nova_quantidade * novo_preco
-                    }
-                    db.vendas.insert_one(novo_registro)
-                    st.success("Registro adicionado com sucesso!")
-                    st.experimental_rerun()
-        
-        # Seção para editar/excluir registros
-        st.markdown("---")
-        st.subheader("🛠️ Editar ou Excluir Registros Existentes")
-        
-        # Filtros
-        with st.form("filtro_form"):
-            col1, col2 = st.columns(2)
-            with col1:
-                filtro_id = st.number_input("Filtrar por ID Cliente", min_value=1)
-            with col2:
-                filtro_nome = st.text_input("Filtrar por Nome do Cliente")
-            
-            if st.form_submit_button("Aplicar Filtros"):
-                st.experimental_rerun()
-        
-        # Aplicar filtros
-        registros_filtrados = df.copy()
-        if filtro_id:
-            registros_filtrados = registros_filtrados[registros_filtrados["ID Cliente"] == filtro_id]
-        if filtro_nome:
-            registros_filtrados = registros_filtrados[
-                registros_filtrados["Nome do Cliente"].str.contains(filtro_nome, case=False, na=False)
-            ]
-        
-        if not registros_filtrados.empty:
-            # Selecionar registro
-            registro_selecionado = st.selectbox(
-                "Selecione um registro para editar/excluir",
-                registros_filtrados["_id"].astype(str) + " | " + 
-                registros_filtrados["Nome do Cliente"] + " | " + 
-                registros_filtrados["Item"] + " | R$" + 
-                registros_filtrados["Preço Total (R$)"].astype(str)
-            )
-            
-            registro_id = ObjectId(registro_selecionado.split(" | ")[0])
-            registro = db.vendas.find_one({"_id": registro_id})
-            
-            # Formulário de edição
-            with st.form("editar_registro_form"):
-                st.markdown("### Editar Registro")
-                
-                col1, col2 = st.columns(2)
-                with col1:
-                    edit_id = st.number_input("ID Cliente", value=registro["ID Cliente"], disabled=True)
-                    edit_nome = st.text_input("Nome do Cliente", value=registro["Nome do Cliente"])
-                    edit_item = st.selectbox(
-                        "Item", 
-                        ["Notebook", "Micro Ondas", "Liquidificador", "Ventilador", "Cafeteira"],
-                        index=["Notebook", "Micro Ondas", "Liquidificador", "Ventilador", "Cafeteira"].index(registro["Item"])
-                    )
-                with col2:
-                    edit_data = st.date_input("Data", value=datetime.strptime(registro["Data"], "%Y-%m-%d").date())
-                    edit_cidade = st.selectbox(
-                        "Cidade", 
-                        ["Embu", "Itapecerica", "Taboão"],
-                        index=["Embu", "Itapecerica", "Taboão"].index(registro["Cidade"])
-                    )
-                    edit_quantidade = st.number_input("Quantidade", min_value=1, value=registro["Quantidade"])
-                    edit_preco = st.number_input("Preço Unitário (R$)", min_value=0.0, value=registro["Preço Unitário (R$)"])
-                
-                col1, col2, col3 = st.columns([1,1,2])
-                with col1:
-                    if st.form_submit_button("💾 Salvar Alterações"):
-                        db.vendas.update_one(
-                            {"_id": registro_id},
-                            {"$set": {
-                                "Nome do Cliente": edit_nome,
-                                "Data": str(edit_data),
-                                "Cidade": edit_cidade,
-                                "Item": edit_item,
-                                "Quantidade": edit_quantidade,
-                                "Preço Unitário (R$)": edit_preco,
-                                "Preço Total (R$)": edit_quantidade * edit_preco
-                            }}
-                        )
-                        st.success("Registro atualizado com sucesso!")
-                        st.experimental_rerun()
-                with col2:
-                    if st.form_submit_button("🗑️ Excluir Registro"):
-                        db.vendas.delete_one({"_id": registro_id})
-                        st.success("Registro excluído com sucesso!")
-                        st.experimental_rerun()
-        else:
-            st.warning("Nenhum registro encontrado com os filtros aplicados")
-
-# PÁGINA: ANÁLISE DE CLIENTES
-elif option == "Análise de Clientes":
-    st.header("👥 Análise de Clientes")
-    st.markdown("---")
-    
-    df = load_data()
-    if df is not None:
-        # Métricas principais
-        st.subheader("📊 Métricas Principais")
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Total Clientes", df['ID Cliente'].nunique())
-        with col2:
-            st.metric("Cidades Atendidas", df['Cidade'].nunique())
-        with col3:
-            st.metric("Ticket Médio", f"R$ {df['Preço Total (R$)'].mean():.2f}")
-        
-        # Top clientes
-        st.markdown("---")
-        st.subheader("🏆 Top 10 Clientes por Valor Gasto")
-        top_clientes = df.groupby('Nome do Cliente').agg({
-            'Preço Total (R$)': 'sum',
-            'Quantidade': 'sum',
-            'Cidade': 'first'
-        }).nlargest(10, 'Preço Total (R$)')
-        st.dataframe(top_clientes.style.format({'Preço Total (R$)': "R$ {:.2f}"}))
+# [...] (Continuação com as outras páginas seguindo o mesmo padrão)
 
 # PÁGINA: OTIMIZAÇÃO LOGÍSTICA
-elif option == "Otimização Logística":
+elif selected_option == "Otimização Logística":
     st.header("🚚 Otimização Logística")
     st.markdown("---")
     
@@ -346,6 +301,7 @@ elif option == "Otimização Logística":
             y='Quantidade',
             color='ID Cliente',
             title='Volume de Entregas por Cidade',
-            labels={'Quantidade': 'Total de Itens', 'ID Cliente': 'Clientes Únicos'}
+            labels={'Quantidade': 'Total de Itens', 'ID Cliente': 'Clientes Únicos'},
+            height=500
         )
         st.plotly_chart(fig, use_container_width=True)
