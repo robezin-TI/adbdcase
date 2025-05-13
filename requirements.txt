@@ -1,6 +1,7 @@
 streamlit==1.22.0
 pymongo==4.3.3
 pandas==1.5.3
+numpy==1.23.5  # Versão compatível com pandas 1.5.3
 plotly-express==0.4.1
 cryptography==39.0.1
 python-dateutil==2.8.2
