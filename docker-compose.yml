@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mongodb:
-    image: mongo:6.0.8
+    image: mongo:6.0
     container_name: eshop-mongodb
     ports:
       - "27017:27017"
@@ -12,30 +12,23 @@ services:
     volumes:
       - mongodb_data:/data/db
     healthcheck:
-      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand({ ping: 1 }).ok"]
-      interval: 15s
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
       timeout: 30s
-      retries: 10
-      start_period: 60s
-    restart: unless-stopped
+      retries: 3
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: eshop-app
     ports:
       - "8501:8501"
     environment:
       MONGO_URI: "mongodb://admin:password@eshop-mongodb:27017/eshop?authSource=admin"
-      STREAMLIT_SERVER_PORT: "8501"
-      STREAMLIT_SERVER_ADDRESS: "0.0.0.0"
-    volumes:
-      - .:/app
     depends_on:
       mongodb:
         condition: service_healthy
-    restart: unless-stopped
+    volumes:
+      - .:/app
 
 volumes:
   mongodb_data:
