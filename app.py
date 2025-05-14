@@ -7,7 +7,6 @@ import hashlib
 import logging
 import time
 import os
-from io import StringIO
 
 # =============================================
 # CONFIGURAÇÕES INICIAIS
@@ -33,7 +32,10 @@ def init_connection():
     try:
         client = MongoClient(
             "mongodb://admin:password@eshop-mongodb:27017/eshop?authSource=admin",
-            serverSelectionTimeoutMS=5000
+            serverSelectionTimeoutMS=5000,
+            socketTimeoutMS=30000,
+            connectTimeoutMS=30000,
+            retryWrites=True
         )
         client.admin.command('ping')
         return client
@@ -143,7 +145,7 @@ def aba_upload():
                     qtd = salvar_no_banco(df)
                     if qtd > 0:
                         st.success(f"{qtd} registros salvos com sucesso!")
-                        st.cache_data.clear()  # Limpa cache para atualizar visualizações
+                        st.cache_data.clear()
                     else:
                         st.error("Nenhum dado foi salvo")
                         
@@ -286,8 +288,10 @@ def aba_logistica():
     # Adicionar coordenadas de forma segura
     vendas_por_cidade['lat'] = vendas_por_cidade['Cidade'].apply(
         lambda x: coordenadas.get(x, (0, 0))[0]
+    )
     vendas_por_cidade['lon'] = vendas_por_cidade['Cidade'].apply(
         lambda x: coordenadas.get(x, (0, 0))[1]
+    )
     
     # Mapa interativo
     st.pydeck_chart(
