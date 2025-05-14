@@ -1,3 +1,4 @@
+# Todas as importações primeiro
 import streamlit as st
 from pymongo import MongoClient
 import pandas as pd
@@ -9,7 +10,17 @@ import time
 import os
 
 # =============================================
-# CONFIGURAÇÕES INICIAIS
+# CONFIGURAÇÃO DA PÁGINA - DEVE SER O PRIMEIRO COMANDO STREAMLIT
+# =============================================
+st.set_page_config(
+    page_title="E-Shop Analytics",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# =============================================
+# CONFIGURAÇÕES INICIAIS (APÓS A CONFIG DA PÁGINA)
 # =============================================
 
 # Configuração de logging
