@@ -42,6 +42,7 @@ https://github.com/robezin-TI/adbdcase
 
 
 Usuário: adminfecaf
+
 Senha: fecafadbd
 
 eshop-analytics/
@@ -59,10 +60,15 @@ eshop-analytics/
 ## 📚 Recursos Adicionais
 
 Documentação Streamlit
+
 https://docs.streamlit.io/
+
 Tutorial Pandas
+
 https://pandas.pydata.org/docs/
+
 Exemplos Plotly
+
 https://plotly.com/python/
 
 ## 📝 Licença
