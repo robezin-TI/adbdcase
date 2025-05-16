@@ -35,9 +35,13 @@ Senha: fecafadbd
 
 eshop-analytics/
 ├── app.py               # Aplicação principal
+
 ├── requirements.txt     # Dependências
+
 ├── Dockerfile           # Configuração de container
+
 ├── docker-compose.yml   # Orquestração (com MongoDB)
+
 └── data/                # Pasta para arquivos CSV (opcional)
 
 ==============================================
