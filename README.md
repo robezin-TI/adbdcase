@@ -34,6 +34,7 @@ Senha: fecafadbd
 ==============================================
 
 eshop-analytics/
+
 ├── app.py               # Aplicação principal
 
 ├── requirements.txt     # Dependências
