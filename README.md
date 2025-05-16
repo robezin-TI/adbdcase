@@ -20,18 +20,29 @@ Painel administrativo para análise de dados de vendas com capacidade de manipul
 ## 🛠️ Instalação e Execução
 
 ### GitHub Codespaces
-1. Acesse seu repositório no GitHub
-2. Clique em "Code" > "Codespaces"
-3. Crie um novo codespace
-4. No terminal, execute:
+1. Acesse o repositório:
 
-docker-compose up --build
+https://github.com/robezin-TI/adbdcase
+
+3. Clique em "Code" > "Download ZIP"
+4. Baixe o arquivo e extraia
+5. Crie um repositório com o nome que desejar
+6. Clique em "File" > "Upload Files"
+7. Selecione a pasta e os arquivos dentro dela
+8. Clique em "Code" > "Create codespace on main"
+9. Crie um novo codespace
+10. No terminal, aguarde que as bibliotecas e aplicativos necessários sejam instalados (em torno de 2 a 3 minutos)
+11. Ainda no terminal digite: "docker-compose up --build"
+12. Quando finalizar um Popup irá aparecer escrito "Abrir no navegador"
+13. Clique nele e o site abrirá
+14. Caso contrario clique em: PORTAS > Abra o link ao lado da porta 8501
+15. As credenciais foram fixadas na entrega do trabalho ou abaixo
+16. Na aba upload: faça o upload do arquivo "relatorio_vendas" fixado junto com o trabalho
+17. O arquivo suporta até 500_000 registros.
 
 
 Usuário: adminfecaf
-
 Senha: fecafadbd
-
 
 eshop-analytics/
 
@@ -41,54 +52,10 @@ eshop-analytics/
 
 ├── Dockerfile           # Configuração de container
 
-├── docker-compose.yml   # Orquestração (com MongoDB)
-
-└── data/                # Pasta para arquivos CSV (opcional)
+└── docker-compose.yml   # Orquestração (com MongoDB)
 
 
-## 💡 Funcionalidades Principais
-#1. Upload de Dados
-Suporte a arquivos CSV grandes (>10MB)
 
-Validação automática das colunas necessárias
-
-Pré-visualização dos dados
-
-# 2. Dashboard Interativo
-Métricas de vendas e clientes
-
-Gráfico temporal de evolução de vendas
-
-Visualização por cidade/região
-
-# 3. Manipulação de Dados
-Edição in-line de registros
-
-Exclusão segura com confirmação
-
-Adição de novos registros
-
-# 4. Visualizações Avançadas
-Mapa geográfico de distribuição
-
-Gráficos interativos com filtros
-
-Exportação de dados processados
-
-## 📈 Exemplos de Análise
-Identificar clientes mais valiosos
-
-Analisar sazonalidade nas vendas
-
-Comparar desempenho por região
-
-Detectar produtos mais vendidos
-
-## 🐛 Solução de Problemas
-Problema	Solução
-Erro no login	Verifique as credenciais no código
-CSV não carrega	Confira se as colunas obrigatórias existem
-Gráficos não atualizam	Recarregue a página (F5)
 ## 📚 Recursos Adicionais
 
 Documentação Streamlit
