@@ -24,6 +24,7 @@ Painel administrativo para análise de dados de vendas com capacidade de manipul
 2. Clique em "Code" > "Codespaces"
 3. Crie um novo codespace
 4. No terminal, execute:
+
 docker-compose up --build
 
 ==============================================
