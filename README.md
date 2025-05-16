@@ -27,13 +27,11 @@ Painel administrativo para análise de dados de vendas com capacidade de manipul
 
 docker-compose up --build
 
-==============================================
 
 Usuário: adminfecaf
 
 Senha: fecafadbd
 
-==============================================
 
 eshop-analytics/
 
@@ -47,7 +45,6 @@ eshop-analytics/
 
 └── data/                # Pasta para arquivos CSV (opcional)
 
-==============================================
 
 ## 💡 Funcionalidades Principais
 #1. Upload de Dados
