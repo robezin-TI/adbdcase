@@ -55,7 +55,166 @@ eshop-analytics/
 
 └── docker-compose.yml   # Orquestração (com MongoDB)
 
+### Documentação do Painel E-Shop Analytics 📊
 
+## Visão Geral
+
+Este é um painel administrativo completo para análise de dados de vendas, desenvolvido com:
+
+Streamlit para a interface web
+
+Pandas para processamento de dados
+
+Plotly para visualizações gráficas
+
+PyDeck para mapas interativos
+
+MongoDB para armazenamento de dados (opcional)
+
+## Funcionalidades Principais
+
+# 1. Sistema de Autenticação 🔒
+   
+Login seguro com hash SHA-256
+
+Credenciais padrão:
+
+Usuário: adminfecaf
+
+Senha: fecafadbd
+
+Gerenciamento de sessão persistente
+
+## 2. Upload de Dados 📤
+
+#Dois modos de carregamento:
+
+Combinar múltiplos arquivos: Ideal para consolidar dados de diferentes períodos
+
+Acumular dados: Adiciona novos dados aos já existentes
+
+Validação automática da estrutura dos arquivos CSV
+
+Suporte a arquivos grandes (processamento em chunks)
+
+Limpeza segura dos dados carregados
+
+## 3. Visualização Completa 🔍
+Tabela interativa com paginação
+
+Filtros avançados por:
+
+Cliente
+
+Cidade
+
+Item/produto
+
+Estatísticas gerais automáticas
+
+Resumo por cliente com:
+
+Total gasto
+
+Última compra
+
+Quantidade de itens comprados
+
+## 4. Análise de Clientes 👥
+Ranking de clientes por valor gasto
+
+Filtros por:
+
+Cidade
+
+Valor mínimo gasto
+
+Visualizações gráficas:
+
+Top 10 clientes (gráfico de barras)
+
+Distribuição por cidade (gráfico de pizza)
+
+## 5. Logística e Distribuição 🚚
+Mapa interativo das vendas por região
+
+Métricas-chave:
+
+Total de vendas
+
+Itens vendidos
+
+Cobertura geográfica
+
+Gráfico de barras por região
+
+## 6. Dashboard Geral 📊
+
+Visão consolidada com KPIs:
+
+Total de clientes
+
+Faturamento total
+
+Cobertura geográfica
+
+Gráfico de evolução temporal das vendas
+
+## Estrutura Técnica
+
+# Arquitetura
+
+graph TD
+    A[Interface Streamlit] --> B[Processamento Pandas]
+    B --> C[Visualização Plotly/PyDeck]
+    A --> D[(MongoDB - Opcional)]
+
+# Dependências
+
+Listadas no requirements.txt:
+
+streamlit>=1.22.0
+
+pandas>=1.5.3
+
+plotly-express>=0.4.1
+
+pydeck>=0.8.0
+
+pymongo>=4.3.3
+
+numpy>=1.23.5
+
+## Como Executar
+
+# 1. Via Docker (Recomendado)
+
+docker-compose up -d --build
+
+# 2. Localmente
+
+pip install -r requirements.txt
+streamlit run app.py
+
+## Estrutura Esperada do CSV
+
+Os arquivos CSV devem conter estas colunas:
+
+ID Cliente
+
+Nome do Cliente
+
+Cidade
+
+Item
+
+Quantidade
+
+Preço Unitário (R$)
+
+Preço Total (R$)
+
+Data (opcional)
 
 ## 📚 Recursos Adicionais
 
