@@ -3,21 +3,21 @@ Disciplina: Advanced Data for Big Data
 Instituição: UniFECAF
 Ano: 2025
 
-# 📊 Painel E-Shop Brasil - Visualização de Dados
+#  Painel E-Shop Brasil - Visualização de Dados
 
 Painel administrativo para análise de dados de vendas com capacidade de manipulação de registros.
 
-## 🚀 Tecnologias Utilizadas
+##  Tecnologias Utilizadas
 - **Streamlit** (Framework para aplicações web com Python)
 - **Pandas** (Manipulação de dados)
 - **Plotly** (Visualizações interativas)
 - **PyDeck** (Mapas geográficos)
 - **MongoDB** (Opcional para grandes datasets)
 
-## 📋 Pré-requisitos
+##  Pré-requisitos
 - Conta no GitHub (para Codespaces)
 
-## 🛠️ Instalação e Execução
+##  Instalação e Execução
 
 ### GitHub Codespaces
 1. Acesse o repositório:
@@ -55,7 +55,7 @@ eshop-analytics/
 
 └── docker-compose.yml   # Orquestração (com MongoDB)
 
-### Documentação do Painel E-Shop Analytics 📊
+### Documentação do Painel E-Shop Analytics 
 
 ## Visão Geral
 
@@ -73,7 +73,7 @@ MongoDB para armazenamento de dados (opcional)
 
 ## Funcionalidades Principais
 
-# 1. Sistema de Autenticação 🔒
+# 1. Sistema de Autenticação 
    
 Login seguro com hash SHA-256
 
@@ -85,7 +85,7 @@ Senha: fecafadbd
 
 Gerenciamento de sessão persistente
 
-## 2. Upload de Dados 📤
+## 2. Upload de Dados 
 
 #Dois modos de carregamento:
 
@@ -99,7 +99,7 @@ Suporte a arquivos grandes (processamento em chunks)
 
 Limpeza segura dos dados carregados
 
-## 3. Visualização Completa 🔍
+## 3. Visualização Completa 
 Tabela interativa com paginação
 
 Filtros avançados por:
@@ -120,7 +120,7 @@ Total gasto
 
 Quantidade de itens comprados
 
-## 4. Análise de Clientes 👥
+## 4. Análise de Clientes 
 Ranking de clientes por valor gasto
 
 Filtros por:
@@ -135,7 +135,7 @@ Top 10 clientes (gráfico de barras)
 
 Distribuição por cidade (gráfico de pizza)
 
-## 5. Logística e Distribuição 🚚
+## 5. Logística e Distribuição 
 Mapa interativo das vendas por região
 
 Métricas-chave:
@@ -148,7 +148,7 @@ Cobertura geográfica
 
 Gráfico de barras por região
 
-## 6. Dashboard Geral 📊
+## 6. Dashboard Geral 
 
 Visão consolidada com KPIs:
 
@@ -209,7 +209,7 @@ Preço Total (R$)
 
 Data (opcional)
 
-## 📚 Recursos Adicionais
+##  Recursos Adicionais
 
 Documentação Streamlit
 
@@ -223,5 +223,5 @@ Exemplos Plotly
 
 https://plotly.com/python/
 
-## 📝 Licença
+##  Licença
 Projeto acadêmico - livre para uso e modificação
