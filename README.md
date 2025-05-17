@@ -162,13 +162,6 @@ Gráfico de evolução temporal das vendas
 
 ## Estrutura Técnica
 
-# Arquitetura
-
-graph TD
-    A[Interface Streamlit] --> B[Processamento Pandas]
-    B --> C[Visualização Plotly/PyDeck]
-    A --> D[(MongoDB - Opcional)]
-
 # Dependências
 
 Listadas no requirements.txt:
