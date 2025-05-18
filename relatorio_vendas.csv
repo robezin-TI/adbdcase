@@ -1,0 +1,375 @@
+﻿ID Cliente,Data,Nome do Cliente,Cidade,Item,Quantidade,Preço Unitário (R$),Preço Total (R$)
+8630,2024-09-15,Mariah Rios,Embu,Notebook,1,2000,2000
+8630,2024-09-15,Mariah Rios,Embu,Micro Ondas,3,600,1800
+8630,2024-09-15,Mariah Rios,Embu,Liquidificador,3,300,900
+8630,2024-09-15,Mariah Rios,Embu,Ventilador,1,200,200
+8630,2024-09-15,Mariah Rios,Embu,Cafeteira,2,150,300
+9856,2024-05-11,José Pedro das Neves,Embu,Micro Ondas,3,600,1800
+9856,2024-05-11,José Pedro das Neves,Embu,Liquidificador,1,300,300
+9856,2024-05-11,José Pedro das Neves,Embu,Cafeteira,2,150,300
+1106,2025-02-26,João Gabriel Casa Grande,Taboão,Notebook,2,2000,4000
+1106,2025-02-26,João Gabriel Casa Grande,Taboão,Micro Ondas,1,600,600
+1106,2025-02-26,João Gabriel Casa Grande,Taboão,Liquidificador,1,300,300
+1106,2025-02-26,João Gabriel Casa Grande,Taboão,Ventilador,3,200,600
+1106,2025-02-26,João Gabriel Casa Grande,Taboão,Cafeteira,2,150,300
+4953,2024-10-07,Ana Cecília Pinto,Itapecerica,Notebook,1,2000,2000
+4953,2024-10-07,Ana Cecília Pinto,Itapecerica,Liquidificador,3,300,900
+4953,2024-10-07,Ana Cecília Pinto,Itapecerica,Cafeteira,1,150,150
+9001,2024-07-05,Luana Aparecida,Itapecerica,Notebook,1,2000,2000
+9001,2024-07-05,Luana Aparecida,Itapecerica,Ventilador,1,200,200
+9001,2024-07-05,Luana Aparecida,Itapecerica,Cafeteira,3,150,450
+3815,2025-04-09,Benicio Machado,Embu,Notebook,3,2000,6000
+3815,2025-04-09,Benicio Machado,Embu,Ventilador,2,200,400
+3815,2025-04-09,Benicio Machado,Embu,Cafeteira,1,150,150
+6670,2024-09-17,Lorena Gomes,Itapecerica,Liquidificador,2,300,600
+6670,2024-09-17,Lorena Gomes,Itapecerica,Ventilador,3,200,600
+6670,2024-09-17,Lorena Gomes,Itapecerica,Cafeteira,3,150,450
+7523,2025-03-08,Sr. Luigi Andrade,Embu,Notebook,1,2000,2000
+7523,2025-03-08,Sr. Luigi Andrade,Embu,Micro Ondas,1,600,600
+7523,2025-03-08,Sr. Luigi Andrade,Embu,Liquidificador,1,300,300
+7523,2025-03-08,Sr. Luigi Andrade,Embu,Ventilador,3,200,600
+7523,2025-03-08,Sr. Luigi Andrade,Embu,Cafeteira,2,150,300
+4182,2024-10-08,Marcela Azevedo,Itapecerica,Notebook,3,2000,6000
+4182,2024-10-08,Marcela Azevedo,Itapecerica,Micro Ondas,3,600,1800
+4182,2024-10-08,Marcela Azevedo,Itapecerica,Liquidificador,3,300,900
+4182,2024-10-08,Marcela Azevedo,Itapecerica,Ventilador,1,200,200
+4182,2024-10-08,Marcela Azevedo,Itapecerica,Cafeteira,3,150,450
+7625,2024-06-28,Dra. Marcela Vieira,Itapecerica,Notebook,1,2000,2000
+7625,2024-06-28,Dra. Marcela Vieira,Itapecerica,Micro Ondas,1,600,600
+7625,2024-06-28,Dra. Marcela Vieira,Itapecerica,Cafeteira,2,150,300
+2776,2025-02-16,Cauê Guerra,Taboão,Notebook,1,2000,2000
+2776,2025-02-16,Cauê Guerra,Taboão,Liquidificador,2,300,600
+9438,2025-04-23,Sra. Eloah Almeida,Taboão,Notebook,1,2000,2000
+9438,2025-04-23,Sra. Eloah Almeida,Taboão,Micro Ondas,2,600,1200
+9438,2025-04-23,Sra. Eloah Almeida,Taboão,Liquidificador,3,300,900
+9438,2025-04-23,Sra. Eloah Almeida,Taboão,Cafeteira,2,150,300
+4670,2024-10-28,Bruna Monteiro,Taboão,Notebook,1,2000,2000
+4670,2024-10-28,Bruna Monteiro,Taboão,Micro Ondas,3,600,1800
+4670,2024-10-28,Bruna Monteiro,Taboão,Liquidificador,2,300,600
+4670,2024-10-28,Bruna Monteiro,Taboão,Ventilador,3,200,600
+4670,2024-10-28,Bruna Monteiro,Taboão,Cafeteira,2,150,300
+1819,2024-08-17,Isadora Teixeira,Itapecerica,Notebook,2,2000,4000
+1819,2024-08-17,Isadora Teixeira,Itapecerica,Micro Ondas,1,600,600
+1819,2024-08-17,Isadora Teixeira,Itapecerica,Liquidificador,1,300,300
+1819,2024-08-17,Isadora Teixeira,Itapecerica,Cafeteira,1,150,150
+7078,2025-04-03,Kevin Sousa,Taboão,Micro Ondas,1,600,600
+7078,2025-04-03,Kevin Sousa,Taboão,Liquidificador,1,300,300
+7078,2025-04-03,Kevin Sousa,Taboão,Ventilador,3,200,600
+1682,2024-05-26,Caleb Freitas,Taboão,Liquidificador,1,300,300
+1682,2024-05-26,Caleb Freitas,Taboão,Ventilador,1,200,200
+1682,2024-05-26,Caleb Freitas,Taboão,Cafeteira,3,150,450
+9320,2024-10-16,Maria Cecília Aragão,Taboão,Notebook,3,2000,6000
+9320,2024-10-16,Maria Cecília Aragão,Taboão,Micro Ondas,1,600,600
+9320,2024-10-16,Maria Cecília Aragão,Taboão,Liquidificador,2,300,600
+9320,2024-10-16,Maria Cecília Aragão,Taboão,Ventilador,2,200,400
+9320,2024-10-16,Maria Cecília Aragão,Taboão,Cafeteira,3,150,450
+7393,2024-08-04,Yago Cavalcante,Embu,Notebook,3,2000,6000
+7393,2024-08-04,Yago Cavalcante,Embu,Micro Ondas,1,600,600
+7393,2024-08-04,Yago Cavalcante,Embu,Liquidificador,2,300,600
+7393,2024-08-04,Yago Cavalcante,Embu,Ventilador,3,200,600
+1233,2025-04-26,Alexia da Rocha,Taboão,Notebook,3,2000,6000
+1233,2025-04-26,Alexia da Rocha,Taboão,Micro Ondas,1,600,600
+1233,2025-04-26,Alexia da Rocha,Taboão,Liquidificador,2,300,600
+1233,2025-04-26,Alexia da Rocha,Taboão,Ventilador,2,200,400
+1233,2025-04-26,Alexia da Rocha,Taboão,Cafeteira,2,150,300
+2951,2025-02-15,Arthur Miguel Nogueira,Embu,Notebook,1,2000,2000
+2951,2025-02-15,Arthur Miguel Nogueira,Embu,Ventilador,3,200,600
+2951,2025-02-15,Arthur Miguel Nogueira,Embu,Cafeteira,2,150,300
+3803,2025-02-27,Cecília Duarte,Itapecerica,Notebook,1,2000,2000
+3803,2025-02-27,Cecília Duarte,Itapecerica,Micro Ondas,2,600,1200
+3803,2025-02-27,Cecília Duarte,Itapecerica,Liquidificador,3,300,900
+3803,2025-02-27,Cecília Duarte,Itapecerica,Ventilador,3,200,600
+3803,2025-02-27,Cecília Duarte,Itapecerica,Cafeteira,1,150,150
+4074,2024-11-14,Luiza Nogueira,Embu,Notebook,1,2000,2000
+4074,2024-11-14,Luiza Nogueira,Embu,Liquidificador,1,300,300
+4074,2024-11-14,Luiza Nogueira,Embu,Ventilador,2,200,400
+2002,2025-01-04,Pedro Lucas Pacheco,Taboão,Notebook,1,2000,2000
+2002,2025-01-04,Pedro Lucas Pacheco,Taboão,Micro Ondas,3,600,1800
+2002,2025-01-04,Pedro Lucas Pacheco,Taboão,Liquidificador,3,300,900
+2002,2025-01-04,Pedro Lucas Pacheco,Taboão,Ventilador,1,200,200
+2002,2025-01-04,Pedro Lucas Pacheco,Taboão,Cafeteira,1,150,150
+4638,2024-08-28,Maria Liz Porto,Taboão,Notebook,3,2000,6000
+4638,2024-08-28,Maria Liz Porto,Taboão,Micro Ondas,3,600,1800
+4638,2024-08-28,Maria Liz Porto,Taboão,Ventilador,2,200,400
+7841,2024-09-13,Lara Macedo,Itapecerica,Notebook,2,2000,4000
+7841,2024-09-13,Lara Macedo,Itapecerica,Ventilador,2,200,400
+7841,2024-09-13,Lara Macedo,Itapecerica,Cafeteira,2,150,300
+7847,2024-07-18,Hellena Leão,Taboão,Notebook,3,2000,6000
+7847,2024-07-18,Hellena Leão,Taboão,Liquidificador,2,300,600
+7847,2024-07-18,Hellena Leão,Taboão,Ventilador,3,200,600
+7847,2024-07-18,Hellena Leão,Taboão,Cafeteira,2,150,300
+7771,2024-08-03,Ísis Freitas,Itapecerica,Notebook,2,2000,4000
+7771,2024-08-03,Ísis Freitas,Itapecerica,Micro Ondas,1,600,600
+7771,2024-08-03,Ísis Freitas,Itapecerica,Liquidificador,1,300,300
+7771,2024-08-03,Ísis Freitas,Itapecerica,Ventilador,3,200,600
+2496,2025-03-22,Clarice Vieira,Taboão,Notebook,3,2000,6000
+2496,2025-03-22,Clarice Vieira,Taboão,Liquidificador,1,300,300
+2496,2025-03-22,Clarice Vieira,Taboão,Ventilador,2,200,400
+2496,2025-03-22,Clarice Vieira,Taboão,Cafeteira,1,150,150
+4306,2024-05-24,Vinicius Castro,Taboão,Notebook,1,2000,2000
+4306,2024-05-24,Vinicius Castro,Taboão,Micro Ondas,3,600,1800
+4306,2024-05-24,Vinicius Castro,Taboão,Liquidificador,2,300,600
+4306,2024-05-24,Vinicius Castro,Taboão,Ventilador,2,200,400
+4306,2024-05-24,Vinicius Castro,Taboão,Cafeteira,2,150,300
+1102,2024-05-21,Mariane Albuquerque,Embu,Notebook,1,2000,2000
+1102,2024-05-21,Mariane Albuquerque,Embu,Micro Ondas,2,600,1200
+1102,2024-05-21,Mariane Albuquerque,Embu,Liquidificador,2,300,600
+1102,2024-05-21,Mariane Albuquerque,Embu,Ventilador,1,200,200
+1102,2024-05-21,Mariane Albuquerque,Embu,Cafeteira,1,150,150
+5288,2024-07-04,Liz Cunha,Itapecerica,Notebook,1,2000,2000
+5288,2024-07-04,Liz Cunha,Itapecerica,Ventilador,3,200,600
+5288,2024-07-04,Liz Cunha,Itapecerica,Cafeteira,2,150,300
+6796,2024-08-27,Manuella Nogueira,Itapecerica,Notebook,3,2000,6000
+6796,2024-08-27,Manuella Nogueira,Itapecerica,Micro Ondas,1,600,600
+6796,2024-08-27,Manuella Nogueira,Itapecerica,Liquidificador,1,300,300
+6796,2024-08-27,Manuella Nogueira,Itapecerica,Ventilador,2,200,400
+6796,2024-08-27,Manuella Nogueira,Itapecerica,Cafeteira,3,150,450
+9696,2024-09-14,Felipe da Luz,Taboão,Notebook,2,2000,4000
+9696,2024-09-14,Felipe da Luz,Taboão,Micro Ondas,1,600,600
+9696,2024-09-14,Felipe da Luz,Taboão,Ventilador,2,200,400
+5763,2024-08-23,Dra. Helena Cavalcante,Taboão,Micro Ondas,1,600,600
+5763,2024-08-23,Dra. Helena Cavalcante,Taboão,Liquidificador,3,300,900
+5763,2024-08-23,Dra. Helena Cavalcante,Taboão,Ventilador,3,200,600
+5763,2024-08-23,Dra. Helena Cavalcante,Taboão,Cafeteira,1,150,150
+9343,2025-02-07,Calebe Fonseca,Taboão,Notebook,3,2000,6000
+9343,2025-02-07,Calebe Fonseca,Taboão,Micro Ondas,1,600,600
+9343,2025-02-07,Calebe Fonseca,Taboão,Ventilador,3,200,600
+9343,2025-02-07,Calebe Fonseca,Taboão,Cafeteira,1,150,150
+2066,2024-05-13,Luiz Fernando da Cruz,Taboão,Notebook,3,2000,6000
+2066,2024-05-13,Luiz Fernando da Cruz,Taboão,Micro Ondas,2,600,1200
+2066,2024-05-13,Luiz Fernando da Cruz,Taboão,Ventilador,2,200,400
+2066,2024-05-13,Luiz Fernando da Cruz,Taboão,Cafeteira,3,150,450
+1702,2024-07-26,Gabriela da Rosa,Taboão,Notebook,3,2000,6000
+1702,2024-07-26,Gabriela da Rosa,Taboão,Micro Ondas,3,600,1800
+1702,2024-07-26,Gabriela da Rosa,Taboão,Liquidificador,2,300,600
+1702,2024-07-26,Gabriela da Rosa,Taboão,Ventilador,1,200,200
+1702,2024-07-26,Gabriela da Rosa,Taboão,Cafeteira,2,150,300
+6774,2024-06-25,Lavínia Brito,Itapecerica,Notebook,3,2000,6000
+6774,2024-06-25,Lavínia Brito,Itapecerica,Micro Ondas,2,600,1200
+6774,2024-06-25,Lavínia Brito,Itapecerica,Liquidificador,1,300,300
+6774,2024-06-25,Lavínia Brito,Itapecerica,Cafeteira,3,150,450
+6359,2024-08-31,Gustavo Marques,Embu,Notebook,3,2000,6000
+6359,2024-08-31,Gustavo Marques,Embu,Micro Ondas,2,600,1200
+6359,2024-08-31,Gustavo Marques,Embu,Ventilador,2,200,400
+6359,2024-08-31,Gustavo Marques,Embu,Cafeteira,3,150,450
+7490,2024-10-29,Eloah Rocha,Itapecerica,Liquidificador,2,300,600
+7490,2024-10-29,Eloah Rocha,Itapecerica,Ventilador,2,200,400
+7490,2024-10-29,Eloah Rocha,Itapecerica,Cafeteira,1,150,150
+5971,2025-03-25,Antonella Silveira,Itapecerica,Notebook,2,2000,4000
+5971,2025-03-25,Antonella Silveira,Itapecerica,Micro Ondas,3,600,1800
+5971,2025-03-25,Antonella Silveira,Itapecerica,Cafeteira,1,150,150
+5974,2025-02-28,Paulo Farias,Taboão,Notebook,2,2000,4000
+5974,2025-02-28,Paulo Farias,Taboão,Liquidificador,3,300,900
+5974,2025-02-28,Paulo Farias,Taboão,Ventilador,1,200,200
+5974,2025-02-28,Paulo Farias,Taboão,Cafeteira,1,150,150
+7261,2024-08-05,Maria da Costa,Embu,Notebook,2,2000,4000
+7261,2024-08-05,Maria da Costa,Embu,Micro Ondas,3,600,1800
+7261,2024-08-05,Maria da Costa,Embu,Ventilador,3,200,600
+7261,2024-08-05,Maria da Costa,Embu,Cafeteira,1,150,150
+5542,2025-04-19,Cauê Gonçalves,Itapecerica,Notebook,2,2000,4000
+5542,2025-04-19,Cauê Gonçalves,Itapecerica,Ventilador,1,200,200
+4336,2024-12-16,Davi Lucas Freitas,Itapecerica,Micro Ondas,1,600,600
+4336,2024-12-16,Davi Lucas Freitas,Itapecerica,Liquidificador,1,300,300
+4336,2024-12-16,Davi Lucas Freitas,Itapecerica,Cafeteira,3,150,450
+8458,2024-07-21,Manuela Andrade,Taboão,Notebook,3,2000,6000
+8458,2024-07-21,Manuela Andrade,Taboão,Micro Ondas,3,600,1800
+8458,2024-07-21,Manuela Andrade,Taboão,Liquidificador,2,300,600
+8458,2024-07-21,Manuela Andrade,Taboão,Ventilador,2,200,400
+8458,2024-07-21,Manuela Andrade,Taboão,Cafeteira,3,150,450
+1788,2025-01-13,Raquel Andrade,Embu,Notebook,3,2000,6000
+1788,2025-01-13,Raquel Andrade,Embu,Micro Ondas,3,600,1800
+1788,2025-01-13,Raquel Andrade,Embu,Ventilador,3,200,600
+1788,2025-01-13,Raquel Andrade,Embu,Cafeteira,1,150,150
+7475,2025-04-28,Ana Beatriz Caldeira,Itapecerica,Liquidificador,1,300,300
+7475,2025-04-28,Ana Beatriz Caldeira,Itapecerica,Ventilador,1,200,200
+7475,2025-04-28,Ana Beatriz Caldeira,Itapecerica,Cafeteira,3,150,450
+6082,2024-05-05,Dra. Marcela Mendonça,Itapecerica,Notebook,3,2000,6000
+6082,2024-05-05,Dra. Marcela Mendonça,Itapecerica,Micro Ondas,1,600,600
+6082,2024-05-05,Dra. Marcela Mendonça,Itapecerica,Ventilador,2,200,400
+6082,2024-05-05,Dra. Marcela Mendonça,Itapecerica,Cafeteira,2,150,300
+9650,2024-09-08,Laura Fonseca,Itapecerica,Notebook,2,2000,4000
+9650,2024-09-08,Laura Fonseca,Itapecerica,Micro Ondas,3,600,1800
+9650,2024-09-08,Laura Fonseca,Itapecerica,Liquidificador,2,300,600
+9650,2024-09-08,Laura Fonseca,Itapecerica,Ventilador,2,200,400
+9650,2024-09-08,Laura Fonseca,Itapecerica,Cafeteira,3,150,450
+3728,2024-08-29,Maria Clara Silva,Taboão,Micro Ondas,3,600,1800
+3728,2024-08-29,Maria Clara Silva,Taboão,Liquidificador,1,300,300
+3728,2024-08-29,Maria Clara Silva,Taboão,Ventilador,2,200,400
+3728,2024-08-29,Maria Clara Silva,Taboão,Cafeteira,3,150,450
+7829,2024-11-06,Ana Vitória Costa,Itapecerica,Liquidificador,2,300,600
+7829,2024-11-06,Ana Vitória Costa,Itapecerica,Ventilador,1,200,200
+1439,2024-10-27,Melina Ferreira,Itapecerica,Notebook,3,2000,6000
+1439,2024-10-27,Melina Ferreira,Itapecerica,Micro Ondas,2,600,1200
+1439,2024-10-27,Melina Ferreira,Itapecerica,Ventilador,2,200,400
+1439,2024-10-27,Melina Ferreira,Itapecerica,Cafeteira,2,150,300
+8109,2024-05-25,Emanuelly Andrade,Itapecerica,Notebook,2,2000,4000
+8109,2024-05-25,Emanuelly Andrade,Itapecerica,Micro Ondas,2,600,1200
+8109,2024-05-25,Emanuelly Andrade,Itapecerica,Liquidificador,1,300,300
+8109,2024-05-25,Emanuelly Andrade,Itapecerica,Ventilador,2,200,400
+8109,2024-05-25,Emanuelly Andrade,Itapecerica,Cafeteira,2,150,300
+4405,2025-04-26,Theo Gomes,Embu,Notebook,1,2000,2000
+4405,2025-04-26,Theo Gomes,Embu,Micro Ondas,1,600,600
+4405,2025-04-26,Theo Gomes,Embu,Ventilador,3,200,600
+4405,2025-04-26,Theo Gomes,Embu,Cafeteira,1,150,150
+6072,2025-02-25,Ravi Lucca Montenegro,Taboão,Notebook,3,2000,6000
+6072,2025-02-25,Ravi Lucca Montenegro,Taboão,Micro Ondas,2,600,1200
+6072,2025-02-25,Ravi Lucca Montenegro,Taboão,Liquidificador,3,300,900
+6072,2025-02-25,Ravi Lucca Montenegro,Taboão,Cafeteira,2,150,300
+5341,2024-07-28,João Vitor Porto,Embu,Micro Ondas,3,600,1800
+5341,2024-07-28,João Vitor Porto,Embu,Liquidificador,1,300,300
+5341,2024-07-28,João Vitor Porto,Embu,Ventilador,3,200,600
+5341,2024-07-28,João Vitor Porto,Embu,Cafeteira,1,150,150
+1238,2024-09-04,Dr. Benjamin Nogueira,Embu,Notebook,3,2000,6000
+1238,2024-09-04,Dr. Benjamin Nogueira,Embu,Micro Ondas,1,600,600
+1238,2024-09-04,Dr. Benjamin Nogueira,Embu,Liquidificador,1,300,300
+1238,2024-09-04,Dr. Benjamin Nogueira,Embu,Cafeteira,2,150,300
+4733,2024-11-24,Enrico Leão,Itapecerica,Notebook,1,2000,2000
+4733,2024-11-24,Enrico Leão,Itapecerica,Liquidificador,1,300,300
+4733,2024-11-24,Enrico Leão,Itapecerica,Ventilador,2,200,400
+4733,2024-11-24,Enrico Leão,Itapecerica,Cafeteira,1,150,150
+8022,2024-11-13,Carolina Fogaça,Itapecerica,Notebook,1,2000,2000
+8022,2024-11-13,Carolina Fogaça,Itapecerica,Ventilador,2,200,400
+6807,2025-03-02,Maria Isis Pastor,Taboão,Micro Ondas,1,600,600
+6807,2025-03-02,Maria Isis Pastor,Taboão,Liquidificador,1,300,300
+6807,2025-03-02,Maria Isis Pastor,Taboão,Ventilador,3,200,600
+8379,2024-09-05,Clara Araújo,Taboão,Notebook,1,2000,2000
+8379,2024-09-05,Clara Araújo,Taboão,Ventilador,1,200,200
+5038,2024-09-19,Sr. Theodoro Cavalcanti,Embu,Notebook,3,2000,6000
+5038,2024-09-19,Sr. Theodoro Cavalcanti,Embu,Micro Ondas,2,600,1200
+5038,2024-09-19,Sr. Theodoro Cavalcanti,Embu,Cafeteira,3,150,450
+1637,2025-04-04,Joaquim Jesus,Itapecerica,Notebook,1,2000,2000
+1637,2025-04-04,Joaquim Jesus,Itapecerica,Micro Ondas,2,600,1200
+1637,2025-04-04,Joaquim Jesus,Itapecerica,Liquidificador,3,300,900
+1637,2025-04-04,Joaquim Jesus,Itapecerica,Ventilador,1,200,200
+1058,2024-08-06,Renan Ramos,Embu,Notebook,3,2000,6000
+1058,2024-08-06,Renan Ramos,Embu,Micro Ondas,1,600,600
+1058,2024-08-06,Renan Ramos,Embu,Liquidificador,1,300,300
+1058,2024-08-06,Renan Ramos,Embu,Cafeteira,3,150,450
+4058,2024-11-15,Luiza Martins,Itapecerica,Notebook,1,2000,2000
+4058,2024-11-15,Luiza Martins,Itapecerica,Liquidificador,2,300,600
+6453,2024-05-30,Luana Santos,Taboão,Notebook,1,2000,2000
+6453,2024-05-30,Luana Santos,Taboão,Micro Ondas,1,600,600
+6453,2024-05-30,Luana Santos,Taboão,Liquidificador,1,300,300
+6453,2024-05-30,Luana Santos,Taboão,Ventilador,3,200,600
+6453,2024-05-30,Luana Santos,Taboão,Cafeteira,3,150,450
+4886,2025-02-09,Dr. Vicente Pereira,Taboão,Micro Ondas,3,600,1800
+4886,2025-02-09,Dr. Vicente Pereira,Taboão,Liquidificador,1,300,300
+4886,2025-02-09,Dr. Vicente Pereira,Taboão,Ventilador,1,200,200
+4886,2025-02-09,Dr. Vicente Pereira,Taboão,Cafeteira,3,150,450
+8689,2025-01-03,Ana Julia Borges,Embu,Liquidificador,1,300,300
+8689,2025-01-03,Ana Julia Borges,Embu,Ventilador,3,200,600
+8689,2025-01-03,Ana Julia Borges,Embu,Cafeteira,1,150,150
+1130,2024-11-01,Dr. Davi Miguel Fogaça,Taboão,Notebook,1,2000,2000
+1130,2024-11-01,Dr. Davi Miguel Fogaça,Taboão,Micro Ondas,2,600,1200
+1130,2024-11-01,Dr. Davi Miguel Fogaça,Taboão,Liquidificador,1,300,300
+1130,2024-11-01,Dr. Davi Miguel Fogaça,Taboão,Ventilador,1,200,200
+9663,2024-06-18,Enrico Pires,Itapecerica,Notebook,2,2000,4000
+9663,2024-06-18,Enrico Pires,Itapecerica,Micro Ondas,1,600,600
+9663,2024-06-18,Enrico Pires,Itapecerica,Ventilador,2,200,400
+9663,2024-06-18,Enrico Pires,Itapecerica,Cafeteira,1,150,150
+2380,2025-02-21,Benício Sá,Embu,Ventilador,2,200,400
+2380,2025-02-21,Benício Sá,Embu,Cafeteira,3,150,450
+2608,2025-03-07,Ana Júlia Pastor,Embu,Notebook,3,2000,6000
+2608,2025-03-07,Ana Júlia Pastor,Embu,Cafeteira,3,150,450
+6492,2024-06-27,Dr. Augusto Sales,Itapecerica,Notebook,3,2000,6000
+6492,2024-06-27,Dr. Augusto Sales,Itapecerica,Liquidificador,1,300,300
+6492,2024-06-27,Dr. Augusto Sales,Itapecerica,Ventilador,1,200,200
+6492,2024-06-27,Dr. Augusto Sales,Itapecerica,Cafeteira,3,150,450
+2465,2024-08-24,Paulo Melo,Embu,Notebook,1,2000,2000
+2465,2024-08-24,Paulo Melo,Embu,Micro Ondas,2,600,1200
+2465,2024-08-24,Paulo Melo,Embu,Liquidificador,3,300,900
+2465,2024-08-24,Paulo Melo,Embu,Ventilador,2,200,400
+2465,2024-08-24,Paulo Melo,Embu,Cafeteira,3,150,450
+2761,2024-12-30,Cauê Melo,Taboão,Notebook,1,2000,2000
+2761,2024-12-30,Cauê Melo,Taboão,Micro Ondas,3,600,1800
+2761,2024-12-30,Cauê Melo,Taboão,Ventilador,3,200,600
+2761,2024-12-30,Cauê Melo,Taboão,Cafeteira,1,150,150
+8238,2024-11-02,Mariana Lima,Itapecerica,Notebook,1,2000,2000
+8238,2024-11-02,Mariana Lima,Itapecerica,Micro Ondas,3,600,1800
+8238,2024-11-02,Mariana Lima,Itapecerica,Liquidificador,3,300,900
+8238,2024-11-02,Mariana Lima,Itapecerica,Ventilador,2,200,400
+8238,2024-11-02,Mariana Lima,Itapecerica,Cafeteira,2,150,300
+9995,2025-04-12,Alexia Albuquerque,Embu,Liquidificador,3,300,900
+9995,2025-04-12,Alexia Albuquerque,Embu,Ventilador,2,200,400
+9995,2025-04-12,Alexia Albuquerque,Embu,Cafeteira,1,150,150
+5778,2024-06-30,Théo Marques,Itapecerica,Notebook,3,2000,6000
+5778,2024-06-30,Théo Marques,Itapecerica,Micro Ondas,3,600,1800
+5778,2024-06-30,Théo Marques,Itapecerica,Liquidificador,2,300,600
+5778,2024-06-30,Théo Marques,Itapecerica,Ventilador,3,200,600
+5778,2024-06-30,Théo Marques,Itapecerica,Cafeteira,2,150,300
+4650,2025-03-16,Marcelo Gomes,Itapecerica,Notebook,2,2000,4000
+4650,2025-03-16,Marcelo Gomes,Itapecerica,Micro Ondas,2,600,1200
+4650,2025-03-16,Marcelo Gomes,Itapecerica,Liquidificador,3,300,900
+4650,2025-03-16,Marcelo Gomes,Itapecerica,Ventilador,2,200,400
+3354,2024-05-02,Lívia Freitas,Embu,Liquidificador,1,300,300
+3354,2024-05-02,Lívia Freitas,Embu,Ventilador,1,200,200
+3354,2024-05-02,Lívia Freitas,Embu,Cafeteira,2,150,300
+6557,2024-08-25,Diogo Viana,Embu,Notebook,3,2000,6000
+6557,2024-08-25,Diogo Viana,Embu,Micro Ondas,3,600,1800
+6557,2024-08-25,Diogo Viana,Embu,Liquidificador,1,300,300
+6557,2024-08-25,Diogo Viana,Embu,Ventilador,3,200,600
+6557,2024-08-25,Diogo Viana,Embu,Cafeteira,2,150,300
+6384,2024-06-14,João Felipe Correia,Taboão,Notebook,2,2000,4000
+6384,2024-06-14,João Felipe Correia,Taboão,Micro Ondas,1,600,600
+6384,2024-06-14,João Felipe Correia,Taboão,Liquidificador,2,300,600
+6384,2024-06-14,João Felipe Correia,Taboão,Ventilador,2,200,400
+4223,2024-07-19,Luísa Azevedo,Taboão,Notebook,3,2000,6000
+4223,2024-07-19,Luísa Azevedo,Taboão,Micro Ondas,1,600,600
+4223,2024-07-19,Luísa Azevedo,Taboão,Cafeteira,2,150,300
+4804,2024-06-29,Asafe Caldeira,Taboão,Notebook,2,2000,4000
+4804,2024-06-29,Asafe Caldeira,Taboão,Micro Ondas,2,600,1200
+4804,2024-06-29,Asafe Caldeira,Taboão,Liquidificador,1,300,300
+4804,2024-06-29,Asafe Caldeira,Taboão,Cafeteira,2,150,300
+8703,2025-01-23,Bernardo Nunes,Itapecerica,Notebook,3,2000,6000
+8703,2025-01-23,Bernardo Nunes,Itapecerica,Micro Ondas,2,600,1200
+8703,2025-01-23,Bernardo Nunes,Itapecerica,Liquidificador,3,300,900
+8703,2025-01-23,Bernardo Nunes,Itapecerica,Ventilador,3,200,600
+8703,2025-01-23,Bernardo Nunes,Itapecerica,Cafeteira,2,150,300
+8710,2024-12-03,Rafael Gomes,Itapecerica,Notebook,3,2000,6000
+8710,2024-12-03,Rafael Gomes,Itapecerica,Micro Ondas,3,600,1800
+8710,2024-12-03,Rafael Gomes,Itapecerica,Ventilador,3,200,600
+8710,2024-12-03,Rafael Gomes,Itapecerica,Cafeteira,2,150,300
+7809,2025-03-10,Cauê Rodrigues,Embu,Notebook,1,2000,2000
+7809,2025-03-10,Cauê Rodrigues,Embu,Liquidificador,1,300,300
+7809,2025-03-10,Cauê Rodrigues,Embu,Ventilador,1,200,200
+7809,2025-03-10,Cauê Rodrigues,Embu,Cafeteira,1,150,150
+9361,2024-12-29,Dra. Eloah Oliveira,Itapecerica,Notebook,3,2000,6000
+9361,2024-12-29,Dra. Eloah Oliveira,Itapecerica,Micro Ondas,2,600,1200
+9361,2024-12-29,Dra. Eloah Oliveira,Itapecerica,Liquidificador,1,300,300
+9361,2024-12-29,Dra. Eloah Oliveira,Itapecerica,Ventilador,3,200,600
+9361,2024-12-29,Dra. Eloah Oliveira,Itapecerica,Cafeteira,1,150,150
+2948,2024-06-29,Luiza Gomes,Itapecerica,Notebook,1,2000,2000
+2948,2024-06-29,Luiza Gomes,Itapecerica,Ventilador,1,200,200
+2948,2024-06-29,Luiza Gomes,Itapecerica,Cafeteira,2,150,300
+3100,2024-12-22,Brayan Moura,Taboão,Notebook,1,2000,2000
+3100,2024-12-22,Brayan Moura,Taboão,Ventilador,3,200,600
+3100,2024-12-22,Brayan Moura,Taboão,Cafeteira,3,150,450
+2633,2025-01-21,Caroline da Rocha,Itapecerica,Notebook,3,2000,6000
+2633,2025-01-21,Caroline da Rocha,Itapecerica,Micro Ondas,2,600,1200
+2633,2025-01-21,Caroline da Rocha,Itapecerica,Liquidificador,2,300,600
+2633,2025-01-21,Caroline da Rocha,Itapecerica,Cafeteira,3,150,450
+8428,2024-10-09,Maria Liz Câmara,Taboão,Micro Ondas,1,600,600
+8428,2024-10-09,Maria Liz Câmara,Taboão,Liquidificador,1,300,300
+8428,2024-10-09,Maria Liz Câmara,Taboão,Ventilador,1,200,200
+8428,2024-10-09,Maria Liz Câmara,Taboão,Cafeteira,2,150,300
+5912,2024-05-12,Luiza Almeida,Taboão,Notebook,1,2000,2000
+5912,2024-05-12,Luiza Almeida,Taboão,Micro Ondas,2,600,1200
+5912,2024-05-12,Luiza Almeida,Taboão,Liquidificador,2,300,600
+5912,2024-05-12,Luiza Almeida,Taboão,Ventilador,1,200,200
+5912,2024-05-12,Luiza Almeida,Taboão,Cafeteira,2,150,300
+3353,2024-10-20,Sr. Vitor Hugo Pastor,Taboão,Micro Ondas,1,600,600
+3353,2024-10-20,Sr. Vitor Hugo Pastor,Taboão,Ventilador,2,200,400
+3353,2024-10-20,Sr. Vitor Hugo Pastor,Taboão,Cafeteira,3,150,450
+7921,2024-12-31,Dra. Mariana Martins,Taboão,Micro Ondas,3,600,1800
+7921,2024-12-31,Dra. Mariana Martins,Taboão,Liquidificador,1,300,300
+8929,2025-04-12,Arthur Miguel Fernandes,Taboão,Micro Ondas,1,600,600
+8929,2025-04-12,Arthur Miguel Fernandes,Taboão,Cafeteira,2,150,300
+2321,2024-12-17,Eduarda Borges,Taboão,Liquidificador,1,300,300
+2321,2024-12-17,Eduarda Borges,Taboão,Ventilador,1,200,200
+3794,2024-10-06,Calebe Sales,Embu,Liquidificador,1,300,300
+3794,2024-10-06,Calebe Sales,Embu,Ventilador,1,200,200
+3794,2024-10-06,Calebe Sales,Embu,Cafeteira,3,150,450
+6948,2024-08-06,Dr. Thomas Pimenta,Taboão,Notebook,1,2000,2000
+6948,2024-08-06,Dr. Thomas Pimenta,Taboão,Micro Ondas,3,600,1800
+6948,2024-08-06,Dr. Thomas Pimenta,Taboão,Liquidificador,3,300,900
+6948,2024-08-06,Dr. Thomas Pimenta,Taboão,Cafeteira,1,150,150
